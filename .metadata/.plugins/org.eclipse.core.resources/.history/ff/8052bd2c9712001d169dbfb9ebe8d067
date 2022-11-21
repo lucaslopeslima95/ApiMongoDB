@@ -1,0 +1,30 @@
+package com.br.main.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.br.main.model.Car;
+import com.br.main.repository.LogRepository;
+import com.br.main.service.CarService;
+import com.br.main.service.LogService;
+
+@RestController
+public class LogController {
+
+	@Autowired
+	private LogService logService;
+	
+	@GetMapping
+	public List<LogO> listAll() {
+		return this.logService.listAll(); 
+	}
+	@PostMapping
+	public Car registerCar(@RequestBody Car car) {
+		return this.logService.registerCar(car);
+	}
+}

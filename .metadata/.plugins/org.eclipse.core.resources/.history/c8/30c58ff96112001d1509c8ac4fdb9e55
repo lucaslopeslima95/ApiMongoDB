@@ -1,0 +1,9 @@
+package Repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import Model.Log;
+
+public interface LogRepository extends MongoRepository<Log, String> {
+
+}

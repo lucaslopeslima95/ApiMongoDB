@@ -1,0 +1,44 @@
+package com.br.main.service;
+
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.br.main.model.Car;
+import com.br.main.model.Log;
+import com.br.main.repository.CarRepository;
+
+@Service
+public class ServiceImplements implements CarService {
+
+	@Autowired
+	private CarRepository carRepository;
+	@Autowired
+	private LogServiceImplements logService; 
+	
+	@Override
+	public List<Car> listAll() {
+		return this.carRepository.findAll();
+	}
+
+	@Override
+	public Car registerCar(Car car) {
+		Queue<Car> queuecar = new LinkedList<>();
+		queuecar.add(car);
+		
+        Car carSaved = new RestTemplate().postForObject("http://api-test.bhut.com.br:3000/api/cars", car , Car.class);
+        
+		Log log = new Log();
+		log.setCar_id(carSaved.getId());
+		log.setData_hora(String.valueOf(LocalDateTime.now()));
+		this.logService.registerLog(log);
+		
+		return null;//this.carRepository.save(car);
+	}
+
+}

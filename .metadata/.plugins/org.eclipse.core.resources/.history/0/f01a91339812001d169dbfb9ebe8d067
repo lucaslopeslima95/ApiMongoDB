@@ -1,0 +1,3 @@
+spring.data.mongodb.uri=mongodb://localhost:8080/bhutcars
+spring.data.mongodb.username=
+spring.data.mongodb.password=

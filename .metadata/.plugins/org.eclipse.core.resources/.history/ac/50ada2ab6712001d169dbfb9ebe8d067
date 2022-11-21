@@ -1,0 +1,10 @@
+package Service;
+
+import java.util.List;
+
+import Model.Car;
+
+public interface CarService {
+	public List<Car> listAll();
+	public void registerCar(Car car);
+}

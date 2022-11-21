@@ -1,0 +1,11 @@
+package Model;
+
+import org.springframework.data.annotation.Id;
+
+public class Log {
+	@Id
+	private String id;
+	private String data_hora;
+	private String car_id;
+	
+}

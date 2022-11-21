@@ -1,0 +1,12 @@
+package Controller.copy;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import Repository.LogRepository;
+
+@RestController
+public class LogController {
+
+	private LogRepository logRepository;
+	
+}

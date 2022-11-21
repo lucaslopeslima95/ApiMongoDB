@@ -1,0 +1,27 @@
+package com.br.main.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.br.main.model.Car;
+import com.br.main.model.Log;
+import com.br.main.repository.LogRepository;
+@Service
+public class LogServiceImplments implements CarService {
+
+	@Autowired
+	private LogRepository logRepository;
+	
+	@Override
+	public List<Car> listAll() {
+		return this.logRepository.findAll();
+	}
+
+	@Override
+	public Car registerCar(Log log) {
+		return this.logRepository.save(log);
+	}
+
+}

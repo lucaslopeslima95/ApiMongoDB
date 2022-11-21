@@ -1,0 +1,24 @@
+package com.br.main.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Data;
+
+@Data
+@Document
+public class Car {
+	
+		@Id
+		private String id;
+		private String title;
+		private String brand;
+		private String price;
+		private String age;
+		@Override
+		public String toString() {
+			return "{\"id=\"" \"+ id +\" ", \"title\"=" \"+ title +\" ", \"brand\"=" \"+ brand +\" ", \"price\"=" \"+ price +\" ", \"age\"=" \"+ age+\"}";
+		}
+		
+		
+
+}

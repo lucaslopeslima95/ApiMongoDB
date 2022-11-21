@@ -1,0 +1,12 @@
+package Service;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import Model.Car;
+
+public interface CarService {
+	public List<Car> listAll();
+	public void registerCar(Car car);
+}

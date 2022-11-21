@@ -1,0 +1,38 @@
+package com.br.main.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.br.main.model.Car;
+import com.br.main.service.CarService;
+
+@RestController
+@RequestMapping("/cars")
+public class CarController {
+
+	@Autowired
+	private CarService carService;
+	
+	@GetMapping
+	public String[] listAll() {
+		String url = "http://api-test.bhut.com.br:3000/api/cars";
+		RestTemplate restTemplate = new RestTemplate();
+		String[] cars = restTemplate.getForObject(url,String[].class);
+		
+			System.out.println(cars);
+		
+		return cars; 
+	}
+	@PostMapping
+	public Car registerCar(@RequestBody Car car) {
+		
+		
+		return this.carService.registerCar(car);
+	}
+	
+}

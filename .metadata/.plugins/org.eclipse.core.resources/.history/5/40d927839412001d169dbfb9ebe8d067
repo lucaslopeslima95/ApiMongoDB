@@ -1,0 +1,26 @@
+package Service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.br.main.model.Car;
+import com.br.main.repository.CarRepository;
+@Service
+public class CarServiceImplments implements CarService {
+
+	@Autowired
+	private CarRepository carRepository;
+	
+	@Override
+	public List<Car> listAll() {
+		return this.carRepository.findAll();
+	}
+
+	@Override
+	public Car registerCar(Car car) {
+		return this.carRepository.save(car);
+	}
+
+}

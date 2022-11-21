@@ -1,0 +1,21 @@
+package Service;
+
+import java.util.List;
+
+import Model.Car;
+
+public class CarServiceImplments implements CarService {
+
+	@Override
+	public List<Car> listAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void registerCar(Car car) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

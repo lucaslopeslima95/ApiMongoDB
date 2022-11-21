@@ -1,0 +1,62 @@
+package com.br.main.service;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import javax.swing.text.DateFormatter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.br.main.model.Car;
+import com.br.main.model.Log;
+import com.br.main.repository.CarRepository;
+
+@Service
+public class CarServiceImplements implements CarService {
+
+	@Autowired
+	private CarRepository carRepository;
+	@Autowired
+	private LogServiceImplements logService;
+	Queue<Car> queuecar = new LinkedList<>();
+
+	@Override
+	public List<Car> listAll() {
+		generateLog(new Log);
+		return this.carRepository.findAll();
+	}
+
+	@Override
+	public void registerCar(Car car) {
+		Car carSaved = new RestTemplate().postForObject("http://api-test.bhut.com.br:3000/api/cars", car, Car.class);
+		queuecar.add(carSaved);
+	}
+
+	public ResponseEntity<String> webhook() {
+		return new ResponseEntity<String>("O " + queuecar.poll().getTitle() + " foi cadastrado com sucesso ",
+				HttpStatus.OK);
+	}
+
+	public void generateLog(Object obj) {
+		Log log = new Log();
+		if (obj instanceof Car) {
+			log.setCar_id(((Car) obj).getId());
+		} else {
+			log.setCar_id("Log de Consulta");
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		String dateFormated = now.format(formatter);
+		log.setData_hora(dateFormated);
+		this.logService.registerLog(log);
+	}
+}

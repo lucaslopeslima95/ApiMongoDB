@@ -1,0 +1,32 @@
+package com.br.main.service;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.br.main.model.Car;
+import com.br.main.repository.CarRepository;
+
+@Service
+public class CarServiceImplements implements CarService {
+
+	@Autowired
+	private CarRepository carRepository;
+	
+	@Override
+	public List<Car> listAll() {
+		return this.carRepository.findAll();
+	}
+
+	@Override
+	public Car registerCar(Car car) {
+		Queue<Car> queuecar = new LinkedList<>();
+		queuecar.add(car);
+		
+		return this.carRepository.save(car);
+	}
+
+}

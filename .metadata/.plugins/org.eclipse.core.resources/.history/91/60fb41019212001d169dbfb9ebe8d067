@@ -1,0 +1,12 @@
+package Service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import Model.Car;
+
+public interface CarService {
+	public List<Car> listAll();
+	public Car registerCar(Car car);
+}
